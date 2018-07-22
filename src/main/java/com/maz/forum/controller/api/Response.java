@@ -45,4 +45,10 @@ public class Response {
         response.setCode(200);
         return response;
     }
+    public static  Response error(String message){
+        Response response=new Response();
+        response.setCode(500);
+        response.setMessage(message);
+        return  response;
+    }
 }
