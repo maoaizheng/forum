@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PostRepo extends CrudRepository<Post, String> {
     Post findByAuthor (String author);
+    Post findByAuthorAndContentAndTitle(String author, String content, String title);
 
 
+    void deleteById(Post post1);
 }

@@ -18,46 +18,69 @@ public class HomeController {
     private PostService postService;
     @Autowired
     private UserService userService;
+    private Response e;
 
     @RequestMapping(value = "/register")
-    private Response register(@RequestParam String userName, @RequestParam String password){
+    private Response register(@RequestParam String userName, @RequestParam String password) {
         try {
             userService.register(userName, password);
             return Response.success();
         } catch (ForumException e) {
 
-            return  Response.error(e.getMessage());
+            return Response.error(e.getMessage());
         }
 
     }
+
     @RequestMapping(value = "/login")
-    private Response login(@RequestParam String userName, @RequestParam String password){
+    private Response login(@RequestParam String userName, @RequestParam String password) {
         try {
             userService.login(userName, password);
             return Response.success();
         } catch (ForumException e) {
 
-            return  Response.error(e.getMessage());
+            return Response.error(e.getMessage());
         }
 
     }
+
     @RequestMapping(value = "/logout")
-    private Response logout(@RequestParam String userName){
+    private Response logout(@RequestParam String userName) {
         try {
             userService.logout(userName);
             return Response.success();
         } catch (ForumException e) {
 
-            return  Response.error(e.getMessage());
+            return Response.error(e.getMessage());
         }
 
     }
 
     @RequestMapping(value = "/create")
-    private Response create(@RequestParam String author, @RequestParam String content, @RequestParam String title){
-            postService.create(author,content,title);
+    private Response create(@RequestParam String author, @RequestParam String content, @RequestParam String title) {
+        postService.create(author, content, title);
+        return Response.success();
+    }
+
+    @RequestMapping(value = "/modify")
+    private Response modify(@RequestParam String id, @RequestParam String content, @RequestParam String title) {
+        try {
+            postService.modify(id, content, title);
             return Response.success();
+        } catch (ForumException e) {
 
+            return Response.error(e.getMessage());
+        }
+    }
 
+    @RequestMapping(value = "/delete")
+    private Response delete(@RequestParam String id) {
+        try {
+            postService.delete(id);
+            return Response.success();
+        } catch (ForumException e) {
+
+            return Response.error(e.getMessage());
+        }
     }
 }

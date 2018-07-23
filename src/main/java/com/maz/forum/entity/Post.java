@@ -18,16 +18,16 @@ public class Post {
         return id;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getAuthor(String author) {
+        return this.author;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitle(String title) {
+        return this.title;
     }
 
-    public String getContent() {
-        return content;
+    public String getContent(String content) {
+        return this.content;
     }
 
     public Date getCreationTime() {
