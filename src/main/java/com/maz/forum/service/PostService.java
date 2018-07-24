@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -60,6 +61,24 @@ public class PostService {
         postRepo.deleteById(id);
 
     }
+    /**
+     * 查找所有帖子
+     */
+    public Iterable findAll() {
+         return postRepo.findAll();
+    }
+
+
+    /**
+     * 找出某个用户的所有帖子
+     */
+    public List findAuthorBooks(String author) throws ForumException{
+        if(!postRepo.existsByAuthor(author)){
+            throw new ForumException("用户不存在");
+        }
+        return  postRepo.findByAuthor(author);
+    }
+
 
 
 

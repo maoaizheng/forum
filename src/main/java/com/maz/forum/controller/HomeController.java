@@ -83,4 +83,20 @@ public class HomeController {
             return Response.error(e.getMessage());
         }
     }
+
+    @RequestMapping(value = "/findAuthorBooks")
+    private Response findAuthorBooks(@RequestParam String author) {
+        try {
+
+            return Response.success(postService.findAuthorBooks(author));
+        } catch (ForumException e) {
+
+            return Response.error(e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/findAll")
+    private Response findAll() {
+        return Response.success( postService.findAll());
+    }
 }
