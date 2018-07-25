@@ -2,6 +2,7 @@ package com.maz.forum.controller;
 
 import com.maz.forum.controller.api.ForumException;
 import com.maz.forum.controller.api.Response;
+import com.maz.forum.service.CommentService;
 import com.maz.forum.service.PostService;
 import com.maz.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class HomeController {
     private PostService postService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private CommentService commentService;
     private Response e;
 
     @RequestMapping(value = "/register")
@@ -98,5 +101,22 @@ public class HomeController {
     @RequestMapping(value = "/findAll")
     private Response findAll() {
         return Response.success( postService.findAll());
+    }
+
+    @RequestMapping(value = "/addComment")
+    private Response addComment(@RequestParam String commentator, @RequestParam String content) {
+        commentService.addComment(commentator, content);
+        return Response.success();
+    }
+
+    @RequestMapping(value = "/deleteComment")
+    private Response deleteComment(@RequestParam String id) {
+        try {
+            commentService.deleteComment(id);
+            return Response.success();
+        } catch (ForumException e) {
+
+            return Response.error(e.getMessage());
+        }
     }
 }
