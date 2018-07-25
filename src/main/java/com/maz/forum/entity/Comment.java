@@ -11,6 +11,7 @@ public class Comment {
     private String commentator;
     private String content;
     private Date creationTime;
+    private String postId;
 
     public String getCommentator() {
         return commentator;
@@ -42,5 +43,13 @@ public class Comment {
 
     public void setCreationTime(Date creationTime) {
         this.creationTime = creationTime;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 }

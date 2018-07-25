@@ -104,8 +104,8 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/addComment")
-    private Response addComment(@RequestParam String commentator, @RequestParam String content) {
-        commentService.addComment(commentator, content);
+    private Response addComment(@RequestParam String commentator, @RequestParam String content,@RequestParam String postId) {
+        commentService.addComment(commentator, content,postId);
         return Response.success();
     }
 

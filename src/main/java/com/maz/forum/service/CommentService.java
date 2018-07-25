@@ -3,6 +3,7 @@ package com.maz.forum.service;
 import com.maz.forum.controller.api.ForumException;
 import com.maz.forum.entity.Comment;
 import com.maz.forum.repository.CommentRepo;
+import javafx.scene.control.Tab;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +18,13 @@ public class CommentService {
     /**
      * 增加评论
      */
-    public void addComment(String commentator,String content){
+    public void addComment(String commentator,String content,String postId){
         Comment comment = new  Comment();
         comment.setId(UUID.randomUUID().toString());
         comment.setContent(content);
         comment.setCommentator(commentator);
         comment.setCreationTime(new Date());
+        comment.setPostId(postId);
 
         commentRepo.save(comment);
     }
