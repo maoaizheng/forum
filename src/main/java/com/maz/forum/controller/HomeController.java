@@ -6,13 +6,16 @@ import com.maz.forum.service.CommentService;
 import com.maz.forum.service.PostService;
 import com.maz.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @RestController
+@CrossOrigin(allowCredentials = "true")
 public class HomeController {
 
     @Autowired
@@ -23,28 +26,31 @@ public class HomeController {
     private CommentService commentService;
     private Response e;
 
+
     @RequestMapping(value = "/register")
     private Response register(@RequestParam String userName, @RequestParam String password) {
         try {
             userService.register(userName, password);
             return Response.success();
         } catch (ForumException e) {
-
             return Response.error(e.getMessage());
         }
 
     }
 
     @RequestMapping(value = "/login")
-    private Response login(@RequestParam String userName, @RequestParam String password) {
+    private Response login(@RequestParam String userName, @RequestParam String password, HttpSession session, HttpServletResponse response) {
         try {
-            userService.login(userName, password);
-            return Response.success();
+            String uid = userService.login(userName, password);
+            return Response.success(uid);
         } catch (ForumException e) {
-
             return Response.error(e.getMessage());
         }
+    }
 
+    @RequestMapping(value = "/getLoginUserName")
+    private Response getLoginUserName(@RequestParam String user) {
+        return Response.success(userService.getLoginUserName(user));
     }
 
     @RequestMapping(value = "/logout")
@@ -56,7 +62,6 @@ public class HomeController {
 
             return Response.error(e.getMessage());
         }
-
     }
 
     @RequestMapping(value = "/create")
@@ -100,12 +105,12 @@ public class HomeController {
 
     @RequestMapping(value = "/findAll")
     private Response findAll() {
-        return Response.success( postService.findAll());
+        return Response.success(postService.findAll());
     }
 
     @RequestMapping(value = "/addComment")
-    private Response addComment(@RequestParam String commentator, @RequestParam String content,@RequestParam String postId) {
-        commentService.addComment(commentator, content,postId);
+    private Response addComment(@RequestParam String commentator, @RequestParam String content, @RequestParam String postId) {
+        commentService.addComment(commentator, content, postId);
         return Response.success();
     }
 
@@ -119,4 +124,10 @@ public class HomeController {
             return Response.error(e.getMessage());
         }
     }
+
+    @RequestMapping(value = "/findAllComment")
+    private Response findAllComment() {
+        return Response.success(commentService.findAllComment());
+    }
+
 }

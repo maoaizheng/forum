@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface PostRepo extends CrudRepository<Post, String> {
-    void deleteById(String id);
     List<Post> findByAuthor(String author);
     boolean existsByAuthor(String author);
+    List<Post> findAll();
 }

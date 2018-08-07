@@ -5,6 +5,7 @@ import com.maz.forum.entity.Post;
 import com.maz.forum.repository.PostRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -64,7 +65,7 @@ public class PostService {
     /**
      * 查找所有帖子
      */
-    public Iterable findAll() {
+    public List<Post> findAll() {
          return postRepo.findAll();
     }
 

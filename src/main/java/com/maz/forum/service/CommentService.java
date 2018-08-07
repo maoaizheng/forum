@@ -2,18 +2,23 @@ package com.maz.forum.service;
 
 import com.maz.forum.controller.api.ForumException;
 import com.maz.forum.entity.Comment;
+import com.maz.forum.entity.Post;
 import com.maz.forum.repository.CommentRepo;
 import javafx.scene.control.Tab;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
 public class CommentService {
     @Autowired
-    private CommentRepo commentRepo;
+    private  CommentRepo commentRepo;
+
+
+
 
     /**
      * 增加评论
@@ -39,4 +44,14 @@ public class CommentService {
         commentRepo.deleteById(id);
 
     }
+
+    /**
+     * 查看所有评论
+     */
+    public List<Comment> findAllComment() {
+        return commentRepo.findAll();
+    }
+
+
+
 }
