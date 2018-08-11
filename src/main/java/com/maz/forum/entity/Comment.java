@@ -13,6 +13,7 @@ public class Comment {
     private Date creationTime;
     private String postId;
 
+
     public String getCommentator() {
         return commentator;
     }

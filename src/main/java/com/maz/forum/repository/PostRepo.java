@@ -11,5 +11,7 @@ import java.util.Optional;
 public interface PostRepo extends CrudRepository<Post, String> {
     List<Post> findByAuthor(String author);
     boolean existsByAuthor(String author);
+    List<Post> findAllById(String id);
+    boolean existsById(String id);
     List<Post> findAll();
 }

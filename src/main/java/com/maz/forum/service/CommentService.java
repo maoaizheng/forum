@@ -2,14 +2,13 @@ package com.maz.forum.service;
 
 import com.maz.forum.controller.api.ForumException;
 import com.maz.forum.entity.Comment;
-import com.maz.forum.entity.Post;
 import com.maz.forum.repository.CommentRepo;
-import javafx.scene.control.Tab;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -51,6 +50,18 @@ public class CommentService {
     public List<Comment> findAllComment() {
         return commentRepo.findAll();
     }
+
+    /**
+     * 查看一个帖子的所有评论
+     */
+
+    public List<Comment> findOnePostComment(String postId) throws ForumException{
+        if(!commentRepo.existsByPostId(postId)){
+            throw new ForumException("帖子不存在");
+        }
+        return  commentRepo.findAllByPostId(postId);
+    }
+
 
 
 

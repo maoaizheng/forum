@@ -108,6 +108,20 @@ public class HomeController {
         return Response.success(postService.findAll());
     }
 
+    @RequestMapping(value = "/findOnePost")
+    private Response findOnePost(@RequestParam String id) {
+        try {
+
+            return Response.success(postService.findOnePost(id));
+        } catch (ForumException e) {
+
+            return Response.error(e.getMessage());
+        }
+    }
+
+
+
+
     @RequestMapping(value = "/addComment")
     private Response addComment(@RequestParam String commentator, @RequestParam String content, @RequestParam String postId) {
         commentService.addComment(commentator, content, postId);
@@ -128,6 +142,17 @@ public class HomeController {
     @RequestMapping(value = "/findAllComment")
     private Response findAllComment() {
         return Response.success(commentService.findAllComment());
+    }
+
+    @RequestMapping(value = "/findOnePostComment")
+    private Response findOnePostComment(@RequestParam String postId) {
+        try {
+
+            return Response.success(commentService.findOnePostComment(postId));
+        } catch (ForumException e) {
+
+            return Response.error(e.getMessage());
+        }
     }
 
 }

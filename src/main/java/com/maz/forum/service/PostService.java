@@ -4,6 +4,7 @@ import com.maz.forum.controller.api.ForumException;
 import com.maz.forum.entity.Post;
 import com.maz.forum.repository.PostRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.style.ToStringCreator;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -79,6 +80,18 @@ public class PostService {
         }
         return  postRepo.findByAuthor(author);
     }
+
+    /**
+     * 查看一个帖子
+     */
+
+    public List findOnePost(String id) throws ForumException{
+        if(!postRepo.existsById(id)){
+            throw new ForumException("帖子不存在");
+        }
+        return  postRepo.findAllById(id);
+    }
+
 
 
 
